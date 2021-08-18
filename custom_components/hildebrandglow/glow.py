@@ -103,6 +103,7 @@ class Glow:
 
         if response.status_code != 200:
             if response.json()["error"] == "incorrect elements -from in the future":
+                _LOGGER.info("Attempted to load data from the future - expected if the day has just changed")
                 return
             elif response.status_code == 401:
                 raise InvalidAuth
