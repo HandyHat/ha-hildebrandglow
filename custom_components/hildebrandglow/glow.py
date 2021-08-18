@@ -4,8 +4,11 @@ from typing import Any, Dict, List
 
 import requests
 from homeassistant import exceptions
+from homeassistant.config_entries import ConfigEntry
+from homeassistant.core import HomeAssistant
+
+from .const import APP_ID, DOMAIN
 from datetime import datetime
-from .__init__ import handle_failed_auth
 import logging
 
 
@@ -45,6 +48,23 @@ class Glow:
         else:
             pprint(data)
             raise InvalidAuth
+
+    async def handle_failed_auth(self, config: ConfigEntry, hass: HomeAssistant) -> None:
+        """Attempt to refresh the current Glow token."""
+        glow_auth = await hass.async_add_executor_job(
+            Glow.authenticate,
+            APP_ID,
+            config.data["username"],
+            config.data["password"],
+        )
+        from .config_flow import config_object
+
+        current_config = dict(config.data.copy())
+        new_config = config_object(current_config, glow_auth)
+        hass.config_entries.async_update_entry(entry=config, data=new_config)
+
+        glow = Glow(APP_ID, glow_auth["token"])
+        hass.data[DOMAIN][config.entry_id] = glow
 
     def retrieve_resources(self) -> List[Dict[str, Any]]:
         """Retrieve the resources known to Glowmarkt for the authenticated user."""

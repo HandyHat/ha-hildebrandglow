@@ -13,11 +13,8 @@ from homeassistant.components.sensor import (
     SensorEntity,
 )
 
-from .config_flow import config_object
 from .const import APP_ID, DOMAIN
 from .glow import Glow, InvalidAuth
-from .__init__ import handle_failed_auth
-
 
 
 async def async_setup_entry(
@@ -35,7 +32,7 @@ async def async_setup_entry(
             resources = await hass.async_add_executor_job(glow.retrieve_resources)
         except InvalidAuth:
             try:
-                await handle_failed_auth(config, hass)
+                await Glow.handle_failed_auth(config, hass)
             except InvalidAuth:
                 return False
 
@@ -142,5 +139,5 @@ class GlowConsumptionCurrent(SensorEntity):
                 self.glow.current_usage, self.resource["resourceId"]
             )
         except InvalidAuth:
-            handle_failed_auth(config, hass)
+            Glow.handle_failed_auth(config, hass)
             pass
