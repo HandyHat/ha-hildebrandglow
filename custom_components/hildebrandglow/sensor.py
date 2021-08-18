@@ -129,7 +129,7 @@ class GlowConsumptionCurrent(SensorEntity):
         midnight = tz.localize(datetime.combine(today, time(0, 0)), is_dst=None)
         return midnight
 
-    async def async_update(self, hass: HomeAssistant, config: ConfigEntry) -> None:
+    async def async_update(self) -> None:
         """Fetch new state data for the sensor.
 
         This is the only method that should fetch new data for Home Assistant.
@@ -139,5 +139,5 @@ class GlowConsumptionCurrent(SensorEntity):
                 self.glow.current_usage, self.resource["resourceId"]
             )
         except InvalidAuth:
-            Glow.handle_failed_auth(config, hass)
+            Glow.handle_failed_auth(ConfigEntry, HomeAssistant)
             pass
