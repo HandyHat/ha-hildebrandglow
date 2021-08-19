@@ -5,7 +5,7 @@ from typing import Any, Dict
 import voluptuous as vol
 from homeassistant import config_entries, core, data_entry_flow
 
-from .const import APP_ID, DOMAIN  # pylint:disable=unused-import
+from .const import APP_ID
 from .glow import CannotConnect, Glow, InvalidAuth
 
 _LOGGER = logging.getLogger(__name__)
@@ -37,7 +37,7 @@ async def validate_input(hass: core.HomeAssistant, data: dict) -> Dict[str, Any]
     return config_object(data, glow)
 
 
-class DomainConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
+class DomainConfigFlow(config_entries.ConfigFlow):
     """Handle a config flow for Hildebrand Glow."""
 
     VERSION = 1

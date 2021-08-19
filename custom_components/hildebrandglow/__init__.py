@@ -20,6 +20,7 @@ async def async_setup(hass: HomeAssistant, config: Dict[str, Any]) -> bool:
 
     return True
 
+
 async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
     """Set up Hildebrand Glow from a config entry."""
     glow = Glow(APP_ID, entry.data["token"])

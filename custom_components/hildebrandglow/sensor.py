@@ -1,19 +1,18 @@
 """Platform for sensor integration."""
-from typing import Any, Callable, Dict, Optional
 from datetime import datetime, time
-import pytz
+from typing import Any, Callable, Dict, Optional
 
-from homeassistant.config_entries import ConfigEntry
-from homeassistant.const import ENERGY_KILO_WATT_HOUR
-from homeassistant.core import HomeAssistant
-from homeassistant.helpers.entity import Entity
+import pytz
 from homeassistant.components.sensor import (
     DEVICE_CLASS_ENERGY,
     STATE_CLASS_MEASUREMENT,
     SensorEntity,
 )
+from homeassistant.config_entries import ConfigEntry
+from homeassistant.const import ENERGY_KILO_WATT_HOUR
+from homeassistant.core import HomeAssistant
 
-from .const import APP_ID, DOMAIN
+from .const import DOMAIN
 from .glow import Glow, InvalidAuth
 
 
@@ -118,7 +117,7 @@ class GlowConsumptionCurrent(SensorEntity):
             return ENERGY_KILO_WATT_HOUR
         else:
             return None
-    
+
     @property
     def last_reset(self):
         "Returns midnight for current day"

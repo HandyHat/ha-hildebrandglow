@@ -1,4 +1,6 @@
 """Classes for interacting with the Glowmarkt API."""
+import logging
+from datetime import datetime
 from pprint import pprint
 from typing import Any, Dict, List
 
@@ -8,9 +10,6 @@ from homeassistant.config_entries import ConfigEntry
 from homeassistant.core import HomeAssistant
 
 from .const import APP_ID, DOMAIN
-from datetime import datetime
-import logging
-
 
 _LOGGER = logging.getLogger(__name__)
 
