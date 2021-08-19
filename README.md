@@ -1,3 +1,5 @@
+# This fork has been moved to https://github.com/HandyHat/ha-hildebrandglow-dcc
+
 # ha-hildebrandglow
 HomeAssistant integration for the [Hildebrand Glow](https://www.hildebrand.co.uk/our-products/) smart meter HAN for UK SMETS meters.
 
